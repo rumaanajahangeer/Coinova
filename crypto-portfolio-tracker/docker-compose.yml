@@ -1,0 +1,35 @@
+# Run everything with:  JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
+# App:  http://localhost:8080   API:  http://localhost:5000/api/health
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  server:
+    build: ./server
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      MONGO_URI: mongodb://mongo:27017/crypto-tracker
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      CLIENT_ORIGIN: http://localhost:8080
+      COINGECKO_API_KEY: ${COINGECKO_API_KEY:-}
+      ETH_RPC_URL: ${ETH_RPC_URL:-https://ethereum-rpc.publicnode.com}
+    ports:
+      - "5000:5000"
+
+  client:
+    build: ./client
+    restart: unless-stopped
+    depends_on:
+      - server
+    ports:
+      - "8080:80"
+
+volumes:
+  mongo-data:

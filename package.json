@@ -1,0 +1,11 @@
+{
+  "name": "crypto-portfolio-tracker-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix crypto-portfolio-tracker",
+    "test": "npm test --prefix crypto-portfolio-tracker",
+    "build": "npm run build --prefix crypto-portfolio-tracker",
+    "install:all": "npm run install:all --prefix crypto-portfolio-tracker"
+  }
+}
