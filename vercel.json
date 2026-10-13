@@ -1,0 +1,28 @@
+
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "client": {
+      "root": "crypto-portfolio-tracker/client",
+      "framework": "vite"
+    },
+    "server": {
+      "root": "crypto-portfolio-tracker/server",
+      "framework": "express"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "server"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "client"
+      }
+    }
+  ]
+}
