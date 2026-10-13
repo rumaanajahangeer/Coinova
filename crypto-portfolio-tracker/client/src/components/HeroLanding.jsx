@@ -101,11 +101,11 @@ export default function HeroLanding({ onEnter }) {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1, duration: 0.8, ease: EASE }}
             >
-              <button type="button" className="hero-btn hero-btn--solid" onClick={onEnter}>
-                Launch Dashboard
+              <button type="button" className="hero-btn hero-btn--solid" onClick={() => onEnter('register')}>
+                Get Started
               </button>
-              <button type="button" className="hero-btn hero-btn--ghost" onClick={onEnter}>
-                How It Works
+              <button type="button" className="hero-btn hero-btn--ghost" onClick={() => onEnter('login')}>
+                Sign In
               </button>
             </motion.div>
           </div>

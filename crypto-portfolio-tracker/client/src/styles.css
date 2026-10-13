@@ -183,6 +183,54 @@ ul { list-style: none; margin: 0; padding: 0; }
   align-self: flex-start;
   font-size: 13px;
 }
+.auth-tabs {
+  display: flex;
+  background: #f1f2f4;
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  margin: 0.2rem 0;
+}
+.auth-tab {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  background: transparent;
+  color: #666;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.auth-tab.active {
+  background: #000;
+  color: #fff;
+}
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password-input-wrap input {
+  width: 100%;
+  padding-right: 56px;
+}
+.toggle-pwd-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+.toggle-pwd-btn:hover {
+  color: #000;
+}
 
 /* summary */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }

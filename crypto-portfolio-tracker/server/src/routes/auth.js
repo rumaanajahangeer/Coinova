@@ -17,14 +17,14 @@ const authLimiter = rateLimit({
 });
 
 const registerSchema = z.object({
-  email: z.string().trim().email().max(200),
-  password: z.string().min(8, 'must be at least 8 characters').max(128),
+  email: z.string().trim().email('Please enter a valid email address').max(200),
+  password: z.string().min(8, 'Password must be at least 8 characters').max(128),
   name: z.string().trim().max(80).optional(),
 });
 
 const loginSchema = z.object({
-  email: z.string().trim().email().max(200),
-  password: z.string().min(1).max(128),
+  email: z.string().trim().email('Please enter a valid email address').max(200),
+  password: z.string().min(1, 'Password is required').max(128),
 });
 
 const profileSchema = z
@@ -39,11 +39,12 @@ router.post(
   authLimiter,
   asyncHandler(async (req, res) => {
     const { email, password, name } = registerSchema.parse(req.body);
-    if (await User.exists({ email: email.toLowerCase() })) {
-      throw new HttpError(409, 'Email already registered');
+    const normalizedEmail = email.toLowerCase();
+    if (await User.exists({ email: normalizedEmail })) {
+      throw new HttpError(409, 'An account with this email already exists. Please log in.');
     }
     const passwordHash = await bcrypt.hash(password, 12);
-    const user = await User.create({ email, passwordHash, name: name || '' });
+    const user = await User.create({ email: normalizedEmail, passwordHash, name: name || '' });
     res.status(201).json({ token: signToken(user), user: user.toPublic() });
   })
 );

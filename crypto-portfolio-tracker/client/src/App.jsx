@@ -22,10 +22,18 @@ const REFRESH_MS = 30_000;
 export default function App() {
   const { user, loading } = useAuth();
   const [gate, setGate] = useState('landing');
+  const [authMode, setAuthMode] = useState('register');
   if (loading) return <div className="splash">Loading…</div>;
   if (user) return <Shell />;
-  if (gate === 'auth') return <AuthPage onBack={() => setGate('landing')} />;
-  return <HeroLanding onEnter={() => setGate('auth')} />;
+  if (gate === 'auth') return <AuthPage initialMode={authMode} onBack={() => setGate('landing')} />;
+  return (
+    <HeroLanding
+      onEnter={(mode = 'register') => {
+        setAuthMode(mode);
+        setGate('auth');
+      }}
+    />
+  );
 }
 
 function Shell() {
